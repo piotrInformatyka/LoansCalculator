@@ -1,10 +1,10 @@
 ﻿namespace Application.Domain
 {
-    public class PaybackPlan
+    public class PaybackCalculator
     {
         private LoanClassification LoanClassification { get; }
         private PaybackScheme PaybackScheme { get; }
-        public PaybackPlan(LoanClassification loanClassification, PaybackScheme paybackScheme)
+        public PaybackCalculator(LoanClassification loanClassification, PaybackScheme paybackScheme)
         {
             LoanClassification = loanClassification;
             PaybackScheme = paybackScheme;

@@ -13,11 +13,11 @@ namespace Tests.Unit
         {
             var loanClassification = new HousingLoan(12);
             var monthlyScheme = new MonthlyPaybackScheme();
-            var paybackPlan = new PaybackPlan(loanClassification, monthlyScheme);
+            var paybackPlan = new PaybackCalculator(loanClassification, monthlyScheme);
             var startDate = new DateTime(2021, 07, 20);
 
             var result = paybackPlan.GetPaybacks(1000, startDate, startDate.AddDays(365));
-            var lastRate = result.OrderByDescending(x => x.DayTime)?.FirstOrDefault()?.Amount;
+            var lastRate = result.OrderByDescending(x => x.PaybackDay)?.FirstOrDefault()?.Amount;
             var totalAmount = result.Sum(x => x.Amount);
 
             Assert.NotNull(result);

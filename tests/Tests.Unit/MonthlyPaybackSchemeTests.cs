@@ -15,7 +15,7 @@ namespace Tests.Unit
             var startDate = new DateTime(2021, 07, 20);
 
             var result = monthlyScheme.GetPaybacks(1000, startDate, startDate.AddDays(365));
-            var lastRate = result.OrderByDescending(x => x.DayTime)?.FirstOrDefault()?.Amount;
+            var lastRate = result.OrderByDescending(x => x.PaybackDay)?.FirstOrDefault()?.Amount;
 
             Assert.NotNull(result);
             Assert.Equal(12, result.Count());

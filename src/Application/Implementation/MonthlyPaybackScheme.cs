@@ -13,7 +13,7 @@ namespace Application.Implementation
 
             return Enumerable.Range(1, totalMonths).Select(month => new Payback()
             {
-                DayTime = startDate.AddMonths(month),
+                PaybackDay = startDate.AddMonths(month),
                 Amount = month != totalMonths ? singleRate : lastRate
             });
         }

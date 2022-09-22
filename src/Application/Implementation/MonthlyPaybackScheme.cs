@@ -4,18 +4,27 @@ namespace Application.Implementation
 {
     public class MonthlyPaybackScheme : PaybackScheme
     {
-        public override IEnumerable<Payback> GetPaybacks(double totalAmount, DateTime startDate, DateTime endTime)
+        protected override LoanClassification LoanClassification { get; }
+        public MonthlyPaybackScheme(LoanClassification loanClassification)
         {
-            var totalMonths = ((endTime.Year - startDate.Year) * 12) + endTime.Month - startDate.Month;
+            LoanClassification = loanClassification;
+        }
 
-            var singleRate = Math.Floor(totalAmount / totalMonths);
-            var lastRate = singleRate + totalAmount % totalMonths;
+        public override IEnumerable<Payback> GetPaybacks(double totalAmount, int months)
+        {
+            var singleRate = totalAmount / months;
+            var actualDay = DateTime.Now;
 
-            return Enumerable.Range(1, totalMonths).Select(month => new Payback()
+            for(var month = 1; month <= months; month++)
             {
-                PaybackDay = startDate.AddMonths(month),
-                Amount = month != totalMonths ? singleRate : lastRate
-            });
+                yield return new Payback
+                {
+                    PaybackDay = actualDay.AddMonths(month),
+                    Interest = LoanClassification.CalculateInterestAmount(totalAmount, 1),
+                    Amount = singleRate
+                };
+                totalAmount -= singleRate;
+            }
         }
     }
 }

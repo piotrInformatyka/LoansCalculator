@@ -2,6 +2,7 @@
 {
     public abstract class PaybackScheme
     {
-        public abstract IEnumerable<Payback> GetPaybacks(double totalAmount, DateTime startDate, DateTime endTime);
+        protected abstract LoanClassification LoanClassification { get; }
+        public abstract IEnumerable<Payback> GetPaybacks(double totalAmount, int months);
     }
 }

@@ -11,9 +11,9 @@ namespace Tests.Unit
         {
             var housingLoan = new HousingLoan(12);
 
-            var result = housingLoan.CalculateInterestAmount(1000, new TimeSpan(365, 0, 0, 0, 0));
+            var result = housingLoan.CalculateInterestAmount(1000, 12);
 
-            Assert.Equal(1120, result);
+            Assert.Equal(120, result);
         }
     }
 }

@@ -11,15 +11,15 @@ namespace Tests.Unit
         [Fact]
         public void GetPaybacks_Should_ReturnsResultWithMontlyScheme()
         {
-            var monthlyScheme = new MonthlyPaybackScheme();
-            var startDate = new DateTime(2021, 07, 20);
+            var monthlyScheme = new MonthlyPaybackScheme(new HousingLoan(12));
 
-            var result = monthlyScheme.GetPaybacks(1000, startDate, startDate.AddDays(365));
-            var lastRate = result.OrderByDescending(x => x.PaybackDay)?.FirstOrDefault()?.Amount;
+            var result = monthlyScheme.GetPaybacks(1000, 3);
+            var lastRate = result.OrderByDescending(x => x.PaybackDay).FirstOrDefault();
 
             Assert.NotNull(result);
-            Assert.Equal(12, result.Count());
-            Assert.Equal(87, lastRate);
+            Assert.Equal(3, result.Count());
+            Assert.Equal(3.33, Math.Round(lastRate.Interest, 2));
+            Assert.Equal(333.33, Math.Round(lastRate.Amount, 2));
         }
     }
 }

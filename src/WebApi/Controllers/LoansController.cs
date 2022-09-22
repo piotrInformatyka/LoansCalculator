@@ -18,11 +18,5 @@ namespace WebApi.Controllers
         [HttpPost("loans")]
         public IEnumerable<Payback> CalculateHousingLoan(GetHousingLoanWithMonths command)
             => _paybackSchemeService.GetHousingLoanPaybacks(command.PrincipleAmount, command.Months);
-        
-        [HttpPost("loans/anyDate")]
-        public IEnumerable<Payback> CalculateHousingLoanWithAnyDates(GetHousingLoanWithDates command)
-            => _paybackSchemeService.GetHousingLoanPaybacks(command.PrincipleAmount, command.StartDate, command.EndDate);
-
-
     }
 }
